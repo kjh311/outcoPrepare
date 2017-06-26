@@ -16,13 +16,88 @@
 
 <h1>Algorithm Patterns</h1>
 
+<h2>Multiple Pointers</h2>
+
+<p>Iterating through an algorithm starting at mulitple places. Saves time.</p>
+
+<h2>Frequency Counters</h2>
+
+<p>Using a hashtable to count the number of times something appears.</p>
+
+<h2>Decrease and Conquer</h2>
+
+<p>Reducing a problem to a smaller problem to save algorithm time.  An expample is a Binary Search. A Binary Search is finding the index of a number in a sorted array.  Start in the middle and go left or right depending on if it's higher or lower. Then jump to the middle of that half, ect.</p>
+
+<h2>Selection Sort</h2>
+
+<p>Find the smallest card. Swap it with the first card.<br/>
+Find the second-smallest card. Swap it with the second card.<br/>
+Find the third-smallest card. Swap it with the third card.<br/>
+Repeat finding the next-smallest card, and swapping it into the correct position until the array is sorted.<br/>
+This algorithm is called selection sort because it repeatedly selects the next-smallest element and swaps it into place.</p>
+
+
+SELECTION SORT<br/>
+var swap = function(array, firstIndex, secondIndex) {<br/>
+    var temp = array[firstIndex];<br/>
+    array[firstIndex] = array[secondIndex];<br/>
+    array[secondIndex] = temp;<br/>
+};<br/><br/>
+
+var indexOfMinimum = function(array, startIndex) {<br/>
+<br/>
+    var minValue = array[startIndex];<br/>
+    var minIndex = startIndex;<br/><br/>
+
+    for(var i = minIndex + 1; i < array.length; i++) {<br/>
+        if(array[i] < minValue) {<br/>
+            minIndex = i;<br/>
+            minValue = array[i];<br/>
+        }<br/>
+    } <br/>
+    return minIndex;<br/>
+}; <br/>
+<br/>
+var selectionSort = function(array) {<br/>
+    <br/>
+    var blah;<br/>
+    for(var i=0;i<array.length;i++){<br/>
+      blah = indexOfMinimum(array,i);<br/>
+        swap(array,i,blah);<br/>
+    }<br/>
+};<br/>
+<br/>
+
+
+var array = [22, 11, 99, 88, 9, 7, 42];<br/>
+selectionSort(array);<br/>
+<br/>
+
 <h2>Bubble Sort</h2>
 
-<p>Compare value at index 0 with index 1, then index 1 with index 2, repeat until end of array.  Start over at index 1, compare with index 2, repeat. Start over at index 2, compare with index 3, repeat.  Very inneficient. </p>
+<p>Bubble sort is the most basic way to sort a collection. It works by sequentially going through your array and comparing two values at a time, swapping them if necessary. It then repeats the process until no swaps are required. Compare value at index 0 with index 1, then index 1 with index 2, repeat until end of array.  Start over at index 1, compare with index 2, repeat. Start over at index 2, compare with index 3, repeat.  Very inneficient. </p>
+
+function sort(values) {<br/>
+  var length = values.length - 1;<br/>
+  do {<br/>
+    var swapped = false;<br/>
+    for(var i = 0; i < length; ++i) {<br/>
+      if (values[i] > values[i+1]) {<br/>
+        var temp = values[i];<br/>
+        values[i] = values[i+1];<br/>
+        values[i+1] = temp;<br/>
+        swapped = true;<br/>
+      }<br/>
+    }<br/>
+  }<br/>
+  while(swapped == true)<br/>
+};<br/>
+sort([7, 4, 5, 2, 9, 1]);<br/>
+//finished<br/>
 
 <h2>Insertion Sort</h2>
 
-<p>Insertion sort starts with index 1 and progresses to the right of the array. Value at index 1 is saved to a temp variable, index 0 is copied to index 1.  If value at index 1 is less than at index 0, index 0 equals temp, if not it's put back at index 1. Then the process starts with index 2, index 1 and 0 pushed right, index 2 is compared with index 1, if greater than index 1, put back at 2, if less then compare with index 0, if greater than index 0 put at index 1, if less put at 0. Repeat until end of array.</p>
+<p>Where a bubble sort relies on a number of small swaps, insertion sort relies on inserting a single element in the right for a given iteration. Every iteration through the collection leaves a greater segment sorted. Insertion sort starts with index 1 and progresses to the right of the array. Value at index 1 is saved to a temp variable, index 0 is copied to index 1.  If value at index 1 is less than at index 0, index 0 equals temp, if not it's put back at index 1. Then the process starts with index 2, index 1 and 0 pushed right, index 2 is compared with index 1, if greater than index 1, put back at 2, if less then compare with index 0, if greater than index 0 put at index 1, if less put at 0. Repeat until end of array.</p>
 
 <p>Here's another way to think about sorting. Imagine that you are playing a card game. You're holding the cards in your hand, and these cards are sorted. The dealer hands you exactly one new card. You have to put it into the correct place so that the cards you're holding are still sorted. In selection sort, each element that you add to the sorted subarray is no smaller than the elements already in the sorted subarray. But in our card example, the new card could be smaller than some of the cards you're already holding, and so you go down the line, comparing the new card against each card in your hand, until you find the place to put it. You insert the new card in the right place, and once again, your hand holds fully sorted cards. Then the dealer gives you another card, and you repeat the same procedure. Then another card, and another card, and so on, until the dealer stops giving you cards.</p>
 
@@ -30,9 +105,34 @@
 <p>Inefficient because it's basically 0(n^2) time complexity.</p>
 
 
+Implementation<br/>
+function sort(values) {<br/>
+  var length = values.length;<br/>
+  for(var i = 1; i < length; ++i) {<br/>
+    var temp = values[i];<br/>
+    var j = i - 1;<br/>
+    for(; j >= 0 && values[j] > temp; --j) {<br/>
+      values[j+1] = values[j];<br/>
+    }<br/>
+    values[j+1] = temp;<br/>
+  }<br/>
+};<br/>
+sort([7, 4, 5, 2, 9, 1]);<br/>
+//finished<br/>
 
+<h2>Recursion</h2>
 
+<p>It is perfectly okay for a function to call itself, as long as it takes care not to overflow the stack. A function that calls itself is called recursive. Recursion allows some functions to be written in a different style. Take, for example, this alternative implementation of power:</p>
 
+function power(base, exponent) {<br/>
+  if (exponent == 0)<br/>
+    return 1;<br/>
+  else<br/>
+    return base * power(base, exponent - 1);<br/>
+}<br/><br/>
+
+console.log(power(2, 3));<br/>
+// → 8<br/>
 
 
 
