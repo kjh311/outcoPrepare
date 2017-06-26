@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Outco Prepare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<h1><a href="index.html" title="">HOME</a></h1>
+<br/>
+<br/>
+
+
+<h1>Algorithm Patterns</h1>
+
+<h2>Bubble Sort</h2>
+
+<p>Compare value at index 0 with index 1, then index 1 with index 2, repeat until end of array.  Start over at index 1, compare with index 2, repeat. Start over at index 2, compare with index 3, repeat.  Very inneficient. </p>
+
+<h2>Insertion Sort</h2>
+
+<p>Insertion sort starts with index 1 and progresses to the right of the array. Value at index 1 is saved to a temp variable, index 0 is copied to index 1.  If value at index 1 is less than at index 0, index 0 equals temp, if not it's put back at index 1. Then the process starts with index 2, index 1 and 0 pushed right, index 2 is compared with index 1, if greater than index 1, put back at 2, if less then compare with index 0, if greater than index 0 put at index 1, if less put at 0. Repeat until end of array.</p>
+
+<p>Here's another way to think about sorting. Imagine that you are playing a card game. You're holding the cards in your hand, and these cards are sorted. The dealer hands you exactly one new card. You have to put it into the correct place so that the cards you're holding are still sorted. In selection sort, each element that you add to the sorted subarray is no smaller than the elements already in the sorted subarray. But in our card example, the new card could be smaller than some of the cards you're already holding, and so you go down the line, comparing the new card against each card in your hand, until you find the place to put it. You insert the new card in the right place, and once again, your hand holds fully sorted cards. Then the dealer gives you another card, and you repeat the same procedure. Then another card, and another card, and so on, until the dealer stops giving you cards.</p>
+
+<!-- <br/> -->
+<p>Inefficient because it's basically 0(n^2) time complexity.</p>
+
+
+
+
+
+
+
+
+</body>
+</html>
