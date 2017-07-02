@@ -451,7 +451,7 @@ Repeat finding the next-smallest card, and swapping it into the correct position
 This algorithm is called selection sort because it repeatedly selects the next-smallest element and swaps it into place.</p>
 
 
-SELECTION SORT<br/>
+SELECTION SORT <br/>
 var swap = function(array, firstIndex, secondIndex) {<br/>
     var temp = array[firstIndex];<br/>
     array[firstIndex] = array[secondIndex];<br/>
@@ -478,6 +478,7 @@ var selectionSort = function(array) {<br/>
     for(var i=0;i<array.length;i++){<br/>
       blah = indexOfMinimum(array,i);<br/>
         swap(array,i,blah);<br/>
+        return array;<br/>
     }<br/>
 };<br/>
 <br/>
@@ -488,7 +489,73 @@ selectionSort(array);<br/>
 <br/>
 <br/>
 <br/>
+<b>// SELECTION SORT (Kev's Version)</b><br/>
+// This version works, but is worse than O(n^2)<br/>
 
+<br/>function selectionSort(array){<br/>
+  <br/>
+  // variables <br/>
+  // startOfSubArray equals 0<br/>
+  let startOfSubArray = 0;<br/>
+  // lowestNumber<br/>
+  let lowestNumber;<br/>
+  <br/>
+  // while startOfSubArray is less than array length -1<br/>
+  while(startOfSubArray < array.length -1){<br/>
+    // lowestNumber equals startOfSubArray<br/>
+    lowestNumber = startOfSubArray;<br/>
+    <br/>
+    // for loop through array <br/>
+    for(var i = startOfSubArray; i<array.length; i++){<br/>
+      // if array[i] is less than array[lowestNumber]<br/>
+      if(array[i] < array[lowestNumber]){<br/>
+        // lowestNumber equals i <br/>
+        lowestNumber = i;<br/>
+      }<br/>
+    }<br/>
+    <br/>
+    // [array[startOfSubArray, array[lowestNumber]] equals [array[lowestNumber], array[startOfSubArray]]<br/>
+    [array[startOfSubArray], array[lowestNumber]] = [array[lowestNumber], array[startOfSubArray]];<br/>
+    <br/>
+    // startOfSubArray increment<br/>
+    startOfSubArray ++;<br/>
+  }<br/>
+  <br/>
+  // return array<br/>
+  return array;<br/>
+}<br/>
+
+<br/>selectionSort([22, 11, 99, 88, 9, 7, 42]); //[7, 9, 11, 22, 42, 88, 99]);<br/>
+// selectionSort([-1,2,3,14,5]); //-1,2,3,5,14<br/>
+
+
+<h2>Insertion Sort</h2>
+
+<p>Where a bubble sort relies on a number of small swaps, insertion sort relies on inserting a single element in the right for a given iteration. Every iteration through the collection leaves a greater segment sorted. Insertion sort starts with index 1 and progresses to the right of the array. Value at index 1 is saved to a temp variable, index 0 is copied to index 1.  If value at index 1 is less than at index 0, index 0 equals temp, if not it's put back at index 1. Then the process starts with index 2, index 1 and 0 pushed right, index 2 is compared with index 1, if greater than index 1, put back at 2, if less then compare with index 0, if greater than index 0 put at index 1, if less put at 0. Repeat until end of array.</p>
+
+<p>Here's another way to think about sorting. Imagine that you are playing a card game. You're holding the cards in your hand, and these cards are sorted. The dealer hands you exactly one new card. You have to put it into the correct place so that the cards you're holding are still sorted. In selection sort, each element that you add to the sorted subarray is no smaller than the elements already in the sorted subarray. But in our card example, the new card could be smaller than some of the cards you're already holding, and so you go down the line, comparing the new card against each card in your hand, until you find the place to put it. You insert the new card in the right place, and once again, your hand holds fully sorted cards. Then the dealer gives you another card, and you repeat the same procedure. Then another card, and another card, and so on, until the dealer stops giving you cards.</p>
+
+<!-- <br/> -->
+<p>Inefficient because it's basically 0(n^2) time complexity.</p>
+
+
+function insertionSort(array){<br/>
+  <br/>
+  for(var i = 1;i<array.length; i++){<br/>
+    var temp = array[i];<br/>
+    <br/>
+    for(var j = i-1; j >= 0 && (array[j] > temp); j--){<br/>
+      array[j + 1] = array[j];<br/>
+    }<br/>
+    array[j + 1] = temp;<br/>
+  }<br/>
+  return array;<br/>
+  <br/>
+}<br/>
+
+
+var array = [22, 11, 99, 88, 9, 7, 42];<br/>
+insertionSort(array);
 
 <h2>Bubble Sort</h2>
 
@@ -508,31 +575,6 @@ function sort(values) {<br/>
     }<br/>
   }<br/>
   while(swapped == true)<br/>
-};<br/>
-sort([7, 4, 5, 2, 9, 1]);<br/>
-//finished<br/>
-
-<h2>Insertion Sort</h2>
-
-<p>Where a bubble sort relies on a number of small swaps, insertion sort relies on inserting a single element in the right for a given iteration. Every iteration through the collection leaves a greater segment sorted. Insertion sort starts with index 1 and progresses to the right of the array. Value at index 1 is saved to a temp variable, index 0 is copied to index 1.  If value at index 1 is less than at index 0, index 0 equals temp, if not it's put back at index 1. Then the process starts with index 2, index 1 and 0 pushed right, index 2 is compared with index 1, if greater than index 1, put back at 2, if less then compare with index 0, if greater than index 0 put at index 1, if less put at 0. Repeat until end of array.</p>
-
-<p>Here's another way to think about sorting. Imagine that you are playing a card game. You're holding the cards in your hand, and these cards are sorted. The dealer hands you exactly one new card. You have to put it into the correct place so that the cards you're holding are still sorted. In selection sort, each element that you add to the sorted subarray is no smaller than the elements already in the sorted subarray. But in our card example, the new card could be smaller than some of the cards you're already holding, and so you go down the line, comparing the new card against each card in your hand, until you find the place to put it. You insert the new card in the right place, and once again, your hand holds fully sorted cards. Then the dealer gives you another card, and you repeat the same procedure. Then another card, and another card, and so on, until the dealer stops giving you cards.</p>
-
-<!-- <br/> -->
-<p>Inefficient because it's basically 0(n^2) time complexity.</p>
-
-
-Implementation<br/>
-function sort(values) {<br/>
-  var length = values.length;<br/>
-  for(var i = 1; i < length; ++i) {<br/>
-    var temp = values[i];<br/>
-    var j = i - 1;<br/>
-    for(; j >= 0 && values[j] > temp; --j) {<br/>
-      values[j+1] = values[j];<br/>
-    }<br/>
-    values[j+1] = temp;<br/>
-  }<br/>
 };<br/>
 sort([7, 4, 5, 2, 9, 1]);<br/>
 //finished<br/>
